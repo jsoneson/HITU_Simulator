@@ -271,10 +271,9 @@ for ii=1:II
     %integrate nonlinear term:	  
     [p,w(nn+1,:),Ppos(:,nn+1),Pneg(:,nn+1),I_td(:,1)] = ...
       TDNL(q,w(nn+1,:),Y,Grid.KK,Grid.JJ,mu,cutoff,Ppos(:,nn),Pneg(:,nn),I_td(:,1));	
-    %attenuation/dispersion term:  
-    p(:,kk) = p(:,kk).*exp(-Layer(ii).alpha(kk)*dz);
-    %diffraction term:
+    %attenuation/dispersion term and diffraction term:
     for kk=1:Grid.KK
+      p(:,kk) = p(:,kk).*exp(-Layer(ii).alpha(kk)*dz);
       %p(:,kk) = M(kk).P1 \ (M(kk).P2 \ (M(kk).P3*p(:,kk)));	% for Pade 12
       p(:,kk) = M(kk).P1 \ (M(kk).P2*p(:,kk));			% for Pade 11
     end
